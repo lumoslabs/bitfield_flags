@@ -1,6 +1,6 @@
 # BitfieldFlags
 
-TODO: Write a gem description
+Quickly add bitfield scopes to an active record model
 
 ## Installation
 
@@ -18,7 +18,24 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+class User < ActiveRecord::Base
+  include BitfieldFlags
+  
+  scoped_flags %w(
+    is_admin
+    is_customer_service
+    legacy_user    
+  )
+  
+  # ...snip...
+end
+
+User.is_admin #=> Returns all users with the 'is_admin' bitfield turned on
+
+user = User.first
+user.is_admin? #=> true or false depending on the is_admin bitfield state
+```
 
 ## Contributing
 
