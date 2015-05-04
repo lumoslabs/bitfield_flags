@@ -13,7 +13,7 @@ module BitfieldFlags
         def scoped_flags(flag_names, column_name = :flags)
           self.bitfield_flags ||= {}
           self.bitfield_flags[column_name] = flag_names.each_with_object({}) { |f, h| h[f.to_sym] = (1 << flag_names.index(f)) }
-          bitfield column_name, bitfield_flags[column_name].invert.merge(scopes: false)
+          bitfield column_name, bitfield_flags[column_name].invert.merge(:scopes => false)
 
           bitfield_flags[column_name].keys.each do |flag|
             scope flag,                 -> { where(flag_set(flag, column_name: column_name)) }
